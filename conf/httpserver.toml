@@ -1,0 +1,2 @@
+app_name = "wechatserver"
+listen = "0.0.0.0:80"
