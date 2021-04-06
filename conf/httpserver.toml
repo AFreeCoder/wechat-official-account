@@ -1,2 +1,7 @@
-app_name = "wechatserver"
+[base]
+name = "wechatserver"
+run_mode = "debug"
 listen = "0.0.0.0:80"
+
+[wechat]
+token = "123456"
