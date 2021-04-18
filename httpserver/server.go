@@ -2,7 +2,7 @@
  * @Description: Do not edit
  * @Date: 2021-03-20 02:05:29
  * @LastEditors: wanghaijie01
- * @LastEditTime: 2021-04-05 19:57:18
+ * @LastEditTime: 2021-04-19 02:30:31
  */
 
 package httpserver
@@ -13,15 +13,11 @@ import (
 	"github.com/wechat-official-account/logger"
 )
 
+// ServerConfig server 配置
 type ServerConfig struct {
-	Base struct {
-		Name    string `json:"name"`
-		Listen  string `json:"listen"`
-		RunMode string `json:"run_mode"`
-	} `json:"base"`
-	WeChat struct {
-		Token string `json:"token"`
-	} `json:"wechat"`
+	Name    string `json:"name"`
+	Listen  string `json:"listen"`
+	RunMode string `json:"run_mode"`
 }
 
 func loadConfig() (*ServerConfig, error) {
@@ -33,6 +29,7 @@ func loadConfig() (*ServerConfig, error) {
 	return config, nil
 }
 
+// Start 入口
 func Start() {
 	serverConf, _ := loadConfig()
 	r := gin.Default()
@@ -40,5 +37,5 @@ func Start() {
 	r.Use(logger.Logger())
 
 	RouterSetup(r)
-	r.Run(serverConf.Base.Listen)
+	r.Run(serverConf.Listen)
 }
