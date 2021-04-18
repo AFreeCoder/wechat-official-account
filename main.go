@@ -7,7 +7,7 @@
 
 package main
 
-import "github.com/wechat-offical-account/httpserver"
+import "github.com/wechat-official-account/httpserver"
 
 func main() {
 	httpserver.Start()
