@@ -1,8 +1,8 @@
 /*
- * @Description: Do not edit
+ * @Description: message 类型定义
  * @Date: 2021-03-20 19:40:20
  * @LastEditors: wanghaijie01
- * @LastEditTime: 2021-03-28 01:07:16
+ * @LastEditTime: 2021-04-18 19:25:42
  */
 
 package message
@@ -11,28 +11,7 @@ import (
 	"encoding/xml"
 )
 
-// ClientMessage 客户端传的消息格式
-type ClientMessage struct {
-	ToUserName   string `form:"ToUserName"`
-	FromUserName string `form:"FromUserName"`
-	MsgType      string `form:"MsgType"`
-	Content      string `form:"Content"`
-	MsgID        int64  `form:"MsgId" xml:"MsgId"`
-	CreateTime   int64  `form:"CreateTime"`
-}
-
-// ServerMessage 服务端返回的消息格式
-type ServerMessage struct {
-	XMLName      xml.Name `xml:"xml"`
-	ToUserName   string   `form:"ToUserName" xml:"ToUserName"`
-	FromUserName string   `form:"FromUserName" xml:"FromUserName"`
-	MsgType      string   `form:"MsgType" xml:"MsgType"`
-	Content      string   `form:"Content" xml:"Content"`
-	MsgID        int64    `form:"MsgId" xml:"MsgId"`
-	CreateTime   int64    `form:"CreateTime" xml:"CreateTime"`
-}
-
-// CliendTextMsg 客户端传来的文本消息，MsgType=text
+// ClientTextMsg 客户端传来的文本消息，MsgType=text
 type ClientTextMsg struct {
 	XMLName      xml.Name `xml:"xml"`
 	ToUserName   string   `json:"ToUserName" xml:"ToUserName"`
@@ -43,14 +22,14 @@ type ClientTextMsg struct {
 	CreateTime   int64    `json:"CreateTime" xml:"CreateTime"`
 }
 
-// CliendPicMsg 客户端传来的图片消息，MsgType=image
+// ClientPicMsg 客户端传来的图片消息，MsgType=image
 type ClientPicMsg struct {
 	XMLName      xml.Name `xml:"xml"`
 	ToUserName   string   `json:"ToUserName" xml:"ToUserName"`
 	FromUserName string   `json:"FromUserName" xml:"FromUserName"`
 	MsgType      string   `json:"MsgType" xml:"MsgType"`
-	PicUrl       string   `json:"PicUrl" xml:"PicUrl"`
-	MediaId      string   `json:"MediaId" xml:"MediaId"`
+	PicURL       string   `json:"PicUrl" xml:"PicUrl"`
+	MediaID      string   `json:"MediaId" xml:"MediaId"`
 	MsgID        int64    `json:"MsgId" xml:"MsgId"`
 	CreateTime   int64    `json:"CreateTime" xml:"CreateTime"`
 }
@@ -61,20 +40,20 @@ type ClientVoiceMsg struct {
 	ToUserName   string   `json:"ToUserName" xml:"ToUserName"`
 	FromUserName string   `json:"FromUserName" xml:"FromUserName"`
 	MsgType      string   `json:"MsgType" xml:"MsgType"`
-	MediaId      string   `json:"MediaId" xml:"MediaId"`
+	MediaID      string   `json:"MediaId" xml:"MediaId"`
 	Format       string   `json:"Format" xml:"Format"`
 	MsgID        int64    `json:"MsgId" xml:"MsgId"`
 	CreateTime   int64    `json:"CreateTime" xml:"CreateTime"`
 }
 
 // ClientVideoMsg 客户端传来的视频/小视频消息，MsgType=video/shortvideo
-type ClientVodeoMsg struct {
+type ClientVideoMsg struct {
 	XMLName      xml.Name `xml:"xml"`
 	ToUserName   string   `json:"ToUserName" xml:"ToUserName"`
 	FromUserName string   `json:"FromUserName" xml:"FromUserName"`
 	MsgType      string   `json:"MsgType" xml:"MsgType"`
-	MediaId      string   `json:"MediaId" xml:"MediaId"`
-	ThumbMediaId string   `json:"ThumbMediaId" xml:"ThumbMediaId"`
+	MediaID      string   `json:"MediaId" xml:"MediaId"`
+	ThumbMediaID string   `json:"ThumbMediaId" xml:"ThumbMediaId"`
 	MsgID        int64    `json:"MsgId" xml:"MsgId"`
 	CreateTime   int64    `json:"CreateTime" xml:"CreateTime"`
 }
@@ -100,7 +79,7 @@ type ClientLinkMsg struct {
 	FromUserName string   `json:"FromUserName" xml:"FromUserName"`
 	MsgType      string   `json:"MsgType" xml:"MsgType"`
 	Title        string   `json:"Title" xml:"Title"`
-	Url          string   `json:"Url" xml:"Url"`
+	URL          string   `json:"Url" xml:"Url"`
 	Description  string   `json:"Description" xml:"Description"`
 	MsgID        int64    `json:"MsgId" xml:"MsgId"`
 	CreateTime   int64    `json:"CreateTime" xml:"CreateTime"`
@@ -168,8 +147,8 @@ type ServerMusicMsg struct {
 		ThumbMediaID string   `form:"ThumbMediaId" xml:"ThumbMediaId"`
 		Title        string   `json:"Title" xml:"Title"`
 		Description  string   `json:"Description" xml:"Description"`
-		MusicUrl     string   `json:"MusicUrl" xml:"MusicUrl"`
-		HQMusicUrl   string   `json:"HQMusicUrl" xml:"HQMusicUrl"`
+		MusicURL     string   `json:"MusicUrl" xml:"MusicUrl"`
+		HQMusicURL   string   `json:"HQMusicUrl" xml:"HQMusicUrl"`
 	}
 	CreateTime int64 `form:"CreateTime" xml:"CreateTime"`
 }
@@ -187,8 +166,8 @@ type ServerNewsMsg struct {
 			XMLName     xml.Name `xml:"item"`
 			Title       string   `json:"Title" xml:"Title"`
 			Description string   `json:"Description" xml:"Description"`
-			PicUrl      string   `json:"PicUrl" xml:"PicUrl"`
-			Url         string   `json:"Url" xml:"Url"`
+			PicURL      string   `json:"PicUrl" xml:"PicUrl"`
+			URL         string   `json:"Url" xml:"Url"`
 		}
 	}
 	CreateTime int64 `form:"CreateTime" xml:"CreateTime"`

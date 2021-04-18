@@ -10,7 +10,7 @@ package httpserver
 import (
 	"github.com/BurntSushi/toml"
 	"github.com/gin-gonic/gin"
-	"github.com/wechat-offical-account/logger"
+	"github.com/wechat-official-account/logger"
 )
 
 type ServerConfig struct {

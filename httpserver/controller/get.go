@@ -9,7 +9,7 @@ package controller
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/wechat-offical-account/library/util"
+	"github.com/wechat-official-account/library/util"
 )
 
 // GetParams 请求参数
