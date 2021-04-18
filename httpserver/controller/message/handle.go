@@ -2,7 +2,7 @@
  * @Description: 消息处理
  * @Date: 2021-03-27 17:11:48
  * @LastEditors: wanghaijie01
- * @LastEditTime: 2021-04-18 19:42:35
+ * @LastEditTime: 2021-04-19 01:07:20
  */
 
 package message
@@ -18,7 +18,19 @@ import (
 
 // EventHandler 事件消息处理
 func EventHandler(c *gin.Context, event string) (interface{}, error) {
-	return nil, nil
+	clientMsg := &ClientTextMsg{}
+	if err := c.ShouldBindBodyWith(clientMsg, binding.XML); err != nil {
+		log.Warn("bind body err: ", err)
+		return nil, err
+	}
+
+	// 先匹配固定回复
+	resp, ok := eventReply(event, clientMsg.FromUserName, clientMsg.ToUserName)
+	if ok {
+		return resp, nil
+	}
+	// TODO: 对其它事件进行处理
+	return resp, nil
 }
 
 // MsgHandler 被动回复用户消息
