@@ -2,7 +2,7 @@
  * @Description: 关键词回复
  * @Date: 2021-04-18 17:52:38
  * @LastEditors: wanghaijie01
- * @LastEditTime: 2021-04-19 00:47:52
+ * @LastEditTime: 2021-04-19 01:06:51
  */
 
 package message
@@ -52,6 +52,12 @@ func eventReply(event string, from, to string) (interface{}, bool) {
 			CreateTime: time.Now().Unix(),
 		}, true
 	default:
-		return ServerTextMsg{}, true
+		return ServerTextMsg{
+			ToUserName:   from,
+			FromUserName: to,
+			MsgType:      "text",
+			Content:      "success",
+			CreateTime:   time.Now().Unix(),
+		}, false
 	}
 }
