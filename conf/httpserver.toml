@@ -4,4 +4,4 @@ run_mode = "debug"
 listen = "0.0.0.0:80"
 
 [wechat]
-token = "123456"
+token = "your wechat token!"
