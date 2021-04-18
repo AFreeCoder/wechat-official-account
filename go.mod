@@ -1,4 +1,4 @@
-module github.com/wechat-offical-account
+module github.com/wechat-official-account
 
 go 1.14
 
