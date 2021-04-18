@@ -2,7 +2,7 @@
  * @Description: Do not edit
  * @Date: 2021-03-20 12:41:39
  * @LastEditors: wanghaijie01
- * @LastEditTime: 2021-03-21 01:23:34
+ * @LastEditTime: 2021-04-19 02:27:21
  */
 
 package controller
@@ -36,7 +36,7 @@ func (bc *BaseController) Get(c *gin.Context) {
 	c.ShouldBind(params)
 	verfifyRes, err := util.VerifyParams(params.Signature, params.Timestamp, params.Nonce)
 	if err != nil || verfifyRes != true {
-		bc.ResponseString(c, "hhhhh")
+		bc.ResponseString(c, "")
 	}
 
 	bc.ResponseString(c, params.Echostr)
