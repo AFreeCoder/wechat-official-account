@@ -2,7 +2,7 @@
  # @Description: 构建脚本
  # @Date: 2021-04-19 23:23:09
  # @LastEditors: wanghaijie01
- # @LastEditTime: 2021-04-20 00:24:59
+ # @LastEditTime: 2021-04-20 00:37:53
 ### 
 
 # prepare
@@ -32,11 +32,9 @@ cp -r conf/* ${OUTPUT}/conf/
 # set run env
 cat conf/httpserver.toml | sed -E "s/^run_mode.*/run_mode = \"${RUNMODE}\"/g" > ${OUTPUT}/conf/httpserver.toml
 
-
 # tar
-tar -czPf output.tar ${OUTPUT}
+tar -czPf output.tar output
 
 # clean
 rm -rf ${OUTPUT}
 rm -rf ${HOMEDIR}/${SERVERNAME}
-
