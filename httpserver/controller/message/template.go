@@ -50,7 +50,7 @@ func eventReply(event string, from, to string) (interface{}, bool) {
 			MsgType:      "text",
 			Content: `欢迎关注【码农的自由之路】！
 
-这里有投资理财技能的分享： <a href="https://mp.weixin.qq.com/mp/appmsgalbum?__biz=Mzg5NjU0MzU1Mg==&action=getalbum&album_id=1682265629497589761#wechat_redirect">基金入门，更新中</a>；也有编程相关知识的分享： <a href="https://mp.weixin.qq.com/mp/appmsgalbum?__biz=Mzg5NjU0MzU1Mg==&action=getalbum&album_id=1682264409559105537#wechat_redirect">Go Go Go</a>！
+这里有投资理财技能的分享： <a href="https://mp.weixin.qq.com/mp/appmsgalbum?__biz=Mzg5NjU0MzU1Mg==&action=getalbum&album_id=1763581217389510656#wechat_redirect">基金入门，更新中</a>；也有编程相关知识的分享： <a href="https://mp.weixin.qq.com/mp/appmsgalbum?__biz=Mzg5NjU0MzU1Mg==&action=getalbum&album_id=1682264409559105537#wechat_redirect">Go Go Go</a>！
 			
 一个996程序员的财务自由日志： <a href="https://mp.weixin.qq.com/mp/appmsgalbum?__biz=Mzg5NjU0MzU1Mg==&action=getalbum&album_id=1660571680026492929#wechat_redirect">财务自由实证</a> 。
 			
