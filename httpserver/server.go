@@ -2,14 +2,12 @@
  * @Description: Do not edit
  * @Date: 2021-03-20 02:05:29
  * @LastEditors: wanghaijie01
- * @LastEditTime: 2021-09-13 00:11:03
+ * @LastEditTime: 2021-09-13 00:16:48
  */
 
 package httpserver
 
 import (
-	"fmt"
-
 	"github.com/BurntSushi/toml"
 	"github.com/gin-gonic/gin"
 	"github.com/wechat-official-account/logger"
@@ -39,6 +37,5 @@ func Start() {
 	r := gin.Default()
 	r.Use(logger.Logger())
 	RouterSetup(r)
-	fmt.Println(serverConf)
 	r.RunTLS(serverConf.Listen, serverConf.PemPath, serverConf.PrivateKeyPath)
 }
