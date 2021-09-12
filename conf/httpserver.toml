@@ -1,3 +1,5 @@
 name = "wechat-server"
 run_mode = "debug"
-listen = "0.0.0.0:80"
+pem_path = "/etc/ssl/afreecoder.com.cn.certs/afreecoder.com.cn.pem"
+private_key_path = "/etc/ssl/afreecoder.com.cn.certs/afreecoder.com.cn.key"
+listen = "0.0.0.0:443"
