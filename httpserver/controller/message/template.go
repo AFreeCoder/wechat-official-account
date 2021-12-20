@@ -2,7 +2,7 @@
  * @Description: 关键词回复
  * @Date: 2021-04-18 17:52:38
  * @LastEditors: wanghaijie01
- * @LastEditTime: 2021-04-19 01:52:07
+ * @LastEditTime: 2021-12-20 11:32:36
  */
 
 package message
@@ -36,6 +36,14 @@ func keyReplay(key string, from, to string) (interface{}, bool) {
 			Content:      "欢迎加我微信 AFreeCoder01 !",
 			CreateTime:   time.Now().Unix(),
 		}, true
+		case "基金公司基本数据":
+			return ServerTextMsg{
+				ToUserName:   from,
+				FromUserName: to,
+				MsgType:      "text",
+				Content:      "基金公司基本数据: https://kdocs.cn/l/cvDbSgXroarA",
+				CreateTime:   time.Now().Unix(),
+			}, true
 	default:
 		return ServerTextMsg{}, false
 	}
