@@ -8,12 +8,11 @@
 package message
 
 import (
-	"time"
+	"fmt"
 
 	"github.com/gin-gonic/gin"
 	"github.com/gin-gonic/gin/binding"
 	log "github.com/sirupsen/logrus"
-	"github.com/wechat-official-account/model/qabot"
 )
 
 // EventHandler 事件消息处理
@@ -30,7 +29,7 @@ func EventHandler(c *gin.Context, event string) (interface{}, error) {
 		return resp, nil
 	}
 	// TODO: 对其它事件进行处理
-	return resp, nil
+	return resp, fmt.Errorf("no reply")
 }
 
 // MsgHandler 被动回复用户消息
@@ -55,19 +54,6 @@ func TextHandler(c *gin.Context) (interface{}, error) {
 		return resp, nil
 	}
 
-	// 暂时只回复文本消息
-	serverMsg := &ServerTextMsg{
-		ToUserName:   clientMsg.FromUserName,
-		FromUserName: clientMsg.ToUserName,
-		MsgType:      "text",
-		CreateTime:   time.Now().Unix(),
-	}
-
-	// 先获取关键词回复
-	content, err := qabot.QA(c, clientMsg.Content)
-	if err != nil {
-		content = "success"
-	}
-	serverMsg.Content = content.(string)
-	return serverMsg, nil
+	// 暂时取消兜底回复
+	return "success", fmt.Errorf("no replay")
 }

@@ -25,7 +25,7 @@ func (bc *BaseController) Post(c *gin.Context) {
 	var params = &GetParams{}
 	c.ShouldBindQuery(params)
 	verfifyRes, err := util.VerifyParams(params.Signature, params.Timestamp, params.Nonce)
-	if err != nil || verfifyRes != true {
+	if err != nil || !verfifyRes {
 		bc.ResponseString(c, "success")
 	}
 
@@ -39,5 +39,9 @@ func (bc *BaseController) Post(c *gin.Context) {
 	} else {
 		resp, err = message.MsgHandler(c, m.MsgType)
 	}
-	bc.ResponseXML(c, resp)
+	if err == nil {
+		bc.ResponseXML(c, resp)
+	} else {
+		bc.ResponseString(c, resp.(string))
+	}
 }

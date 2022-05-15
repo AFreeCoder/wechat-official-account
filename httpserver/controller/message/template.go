@@ -68,12 +68,6 @@ func eventReply(event string, from, to string) (interface{}, bool) {
 			CreateTime: time.Now().Unix(),
 		}, true
 	default:
-		return ServerTextMsg{
-			ToUserName:   from,
-			FromUserName: to,
-			MsgType:      "text",
-			Content:      "success",
-			CreateTime:   time.Now().Unix(),
-		}, false
+		return "success", false
 	}
 }
