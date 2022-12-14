@@ -1,40 +1,25 @@
-###
- # @Description: 构建脚本
- # @Date: 2021-04-19 23:23:09
- # @LastEditors: wanghaijie01
- # @LastEditTime: 2021-04-20 00:37:53
-### 
+# 停止和删除旧容器
+OLD_CONTAINER_ID=`docker container ls -aq --filter name=wechat-official-account`
+if [ -n $OLD_CONTAINER_ID ];then
+    docker container stop $OLD_CONTAINER_ID
+    docker container rm $OLD_CONTAINER_ID
+fi
+echo "stop and rm old container, done!"
 
-# prepare
-HOMEDIR=`pwd`
-OUTPUT=${HOMEDIR}/output
-SERVERNAME=wechat-server
-RUNMODE=debug
 
-if [ "$1" = "release" ]; then
-RUNMODE="$1"
+# 删除旧镜像
+OLD_IMAGE_ID=`docker image ls wechat-official-account -q`
+if [ -n $OLD_IMAGE_ID ]; then
+    docker image rm $OLD_IMAGE_ID
 fi
 
-# init go env
-go env -w GO111MODULE="on"
-go env -w GOPROXY="https://goproxy.cn,direct"
+echo "rm old image, done!"
 
-# build
-go build -o ${HOMEDIR}/${SERVERNAME}
+# 加载新镜像
+docker image load -i wechat-official-account.tar.gz
+echo "load new container, done!"
 
-# build dir
-rm -rf ${OUTPUT}
-mkdir -p ${OUTPUT}/bin
-mkdir -p ${OUTPUT}/conf
-cp ${HOMEDIR}/${SERVERNAME} ${OUTPUT}/bin/
-cp -r conf/* ${OUTPUT}/conf/
-
-# set run env
-cat conf/httpserver.toml | sed -E "s/^run_mode.*/run_mode = \"${RUNMODE}\"/g" > ${OUTPUT}/conf/httpserver.toml
-
-# tar
-tar -czPf output.tar output
-
-# clean
-rm -rf ${OUTPUT}
-rm -rf ${HOMEDIR}/${SERVERNAME}
+# 启用新容器
+IMAGEID=`docker image ls wechat-official-account -q`
+docker container run --name wechat-official-account -p 8080:8080 -v /home/work/data/wechat-official-account/logs:/app/logs -d $IMAGEID
+echo "run new container done"

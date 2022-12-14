@@ -37,5 +37,5 @@ func Start() {
 	r := gin.Default()
 	r.Use(logger.Logger())
 	RouterSetup(r)
-	r.RunTLS(serverConf.Listen, serverConf.PemPath, serverConf.PrivateKeyPath)
+	r.Run(serverConf.Listen)
 }

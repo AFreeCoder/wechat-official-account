@@ -1,0 +1,58 @@
+name: wechat-official-account
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+    build:
+        # 后续可以改成自己的服务器
+        runs-on: ubuntu-latest
+
+        steps:
+        # 拉取对应代码
+        - uses: actions/checkout@v3
+
+        - name: docker build
+          run: |
+            docker build . --file Dockerfile --target prod -t wechat-official-account:v0.$GITHUB_RUN_NUMBER --platform=linux/amd64
+            docker save -o wechat-official-account.tar.gz wechat-official-account:v0.$GITHUB_RUN_NUMBER
+
+        - uses: actions/upload-artifact@v3
+          with:
+            name: wechat-official-account.tar.gz
+            path: ./wechat-official-account.tar.gz
+        - uses: actions/upload-artifact@v3
+          with:
+            name: build.sh
+            path: ./build.sh
+    deploy:
+        needs: [build]
+        env:
+          DEPLOY_HOST: ${{ secrets.TENCENT_HOST }}
+          DEPLOY_KEY: ${{ secrets.TENCENT_PRI_KEY }}
+        runs-on: ubuntu-latest
+        steps:
+        - uses: actions/download-artifact@v3
+          with:
+            name: wechat-official-account.tar.gz
+        - uses: actions/download-artifact@v3
+          with:
+            name: build.sh
+        - name: RSyncer Action
+          uses: Pendect/action-rsyncer@v2.0.0
+          with:
+            flags: '-avzrP --delete'
+            options: ''
+            ssh_options: ''
+            src: './'
+            dest: 'work@${DEPLOY_HOST}:/home/work/artifact/wechat-official-account'
+
+        - name: Display status from deploy
+          run: echo "${{ steps.deploy.outputs.status }}"
+
+        - name: deploy wechat-official-account
+          run: |
+            mkdir -p ~/.ssh/ && echo "${DEPLOY_KEY}" > ~/.ssh/id_rsa && chmod 600 ~/.ssh/id_rsa
+            ssh -o StrictHostKeyChecking=no work@${DEPLOY_HOST} "cd /home/work/artifact/wechat-official-account && sh build.sh"
+
