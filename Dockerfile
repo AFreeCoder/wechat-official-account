@@ -15,15 +15,15 @@ COPY main.go .
 RUN go env -w GO111MODULE="on"
 RUN go env -w GOPROXY="https://goproxy.cn,direct"
 RUN mkdir bin
-RUN go build -o bin/wechat-server
 RUN sed -E "s/^run_mode.*/run_mode = \"release\"/g" conf/httpserver.toml
+RUN go build -o bin/wechat-server
 
-FROM scratch as prod
+FROM alpine as prod
 
 WORKDIR /app
 
-COPY --from=0 /build/bin/ bin/
-COPY --from=0 /build/conf/ conf/
+COPY --from=builder /build/bin/ bin/
+COPY --from=builder /build/conf/ conf/
 
 EXPOSE 8080
 
